@@ -36,7 +36,7 @@ public class OriginDisplayScreenMixin extends Screen {
 		super(title);
 	}
 
-	@WrapOperation(method = "renderOriginContent", at = @At(value = "INVOKE", target = "Lio/github/apace100/origins/origin/Origin;getPowers()Lcom/google/common/collect/ImmutableList;"))
+	@WrapOperation(method = "renderDescriptionAndBadges", at = @At(value = "INVOKE", target = "Lio/github/apace100/origins/origin/Origin;getPowers()Lcom/google/common/collect/ImmutableList;"))
 	private ImmutableList<Power> extraorigins$randomPowerGranter(Origin instance, Operation<ImmutableList<Power>> original) {
 		List<Power> powers = original.call(instance);
 		randomPowers.clear();
@@ -54,7 +54,7 @@ public class OriginDisplayScreenMixin extends Screen {
 		return ImmutableList.copyOf(powers);
 	}
 
-	@WrapOperation(method = "renderOriginContent", at = @At(value = "INVOKE", target = "Lio/github/apace100/apoli/power/Power;getName()Lnet/minecraft/text/MutableText;"))
+	@WrapOperation(method = "renderDescriptionAndBadges", at = @At(value = "INVOKE", target = "Lio/github/apace100/apoli/power/Power;getName()Lnet/minecraft/text/MutableText;"))
 	private MutableText extraorigins$randomPowerGranter(Power instance, Operation<MutableText> original) {
 		MutableText name = original.call(instance);
 		if (randomPowers.contains(instance)) {
@@ -64,7 +64,7 @@ public class OriginDisplayScreenMixin extends Screen {
 		return name;
 	}
 
-	@WrapOperation(method = "renderOriginContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/text/MutableText;formatted(Lnet/minecraft/util/Formatting;)Lnet/minecraft/text/MutableText;"))
+	@WrapOperation(method = "renderDescriptionAndBadges", at = @At(value = "INVOKE", target = "Lnet/minecraft/text/MutableText;formatted(Lnet/minecraft/util/Formatting;)Lnet/minecraft/text/MutableText;"))
 	private MutableText extraorigins$randomPowerGranter(MutableText instance, Formatting formatting, Operation<MutableText> original) {
 		MutableText formatted = original.call(instance, formatting);
 		if (index > 0) {

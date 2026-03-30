@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
+	@SuppressWarnings("WrapWithConditionTargetsNonVoid")
 	@WrapWithCondition(method = "applyFoodEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z"))
 	private boolean extraorigins$foodEffectImmunity(LivingEntity instance, StatusEffectInstance effect) {
 		return PowerHolderComponent.getPowerTypes(instance, FoodEffectImmunityPowerType.class).stream().noneMatch(powerType -> powerType.isActive() && powerType.shouldRemove(effect.getEffectType()));
