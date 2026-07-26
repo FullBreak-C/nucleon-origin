@@ -23,7 +23,7 @@
   "client": [
 	"powertype.delayedhitbox.client.MinecraftClientMixin",
 	"powertype.modifyitemattributes.client.ItemStackMixin",
-	"powertype.randompowergranter.client.OriginDisplayScreenMixin"
+	"powertype.randompowergranter.client.OriginWindowWidgetMixin"
   ],
   "injectors": {
 	"defaultRequire": 1
