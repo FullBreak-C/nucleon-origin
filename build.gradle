@@ -30,14 +30,14 @@ fabricApi {
 
 repositories {
     maven {
-        name "ladysnake"
+        name "Ladysnake"
         url "https://maven.ladysnake.org/releases"
     }
     chenille.repositories.shedaniel()
     chenille.repositories.terraformers()
     chenille.repositories.quiltMC()
     maven {
-        name "carpet"
+        name "Carpet"
         url "https://masa.dy.fi/maven"
     }
     chenille.repositories.modrinth()
@@ -48,7 +48,7 @@ dependencies {
     mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     modImplementation "io.github.apace100:origins-fabric:${origins_version}"
 }
 
