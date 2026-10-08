@@ -14,6 +14,7 @@ public class ModParticleTypes {
 	public static final SimpleParticleType OFFENSE_SPORE = register("offense_spore");
 	public static final SimpleParticleType DEFENSE_SPORE = register("defense_spore");
 	public static final SimpleParticleType MOBILITY_SPORE = register("mobility_spore");
+	public static final SimpleParticleType RADIOACTIVE_DECAY = register("radioactive_decay");
 
 	private static SimpleParticleType register(String name) {
 		return Registry.register(Registries.PARTICLE_TYPE, ExtraOrigins.id(name), FabricParticleTypes.simple());

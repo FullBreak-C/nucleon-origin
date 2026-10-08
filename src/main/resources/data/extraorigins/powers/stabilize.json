@@ -1,0 +1,15 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+    "type": "extraorigins:trigger_freeze",
+    "duration": 100
+  },
+  "cooldown": 200,
+  "hud_render": {
+    "should_render": true,
+    "sprite_location": "extraorigins:textures/gui/resource_bar_alt.png"
+  },
+  "key": {
+    "key": "key.origins.primary_active"
+  }
+}

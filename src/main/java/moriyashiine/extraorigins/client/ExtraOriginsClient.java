@@ -7,6 +7,7 @@ package moriyashiine.extraorigins.client;
 import moriyashiine.extraorigins.client.event.DelayedHitboxClientEvent;
 import moriyashiine.extraorigins.client.event.RadialMenuClientEvent;
 import moriyashiine.extraorigins.client.event.RandomPowerGranterClientEvent;
+import moriyashiine.extraorigins.client.particle.RadioactiveDecayParticle;
 import moriyashiine.extraorigins.client.particle.SporeParticle;
 import moriyashiine.extraorigins.client.payload.MarkRadialDirectionChangedPayload;
 import moriyashiine.extraorigins.client.payload.NotifyRandomPowerChangePacket;
@@ -30,6 +31,7 @@ public class ExtraOriginsClient implements ClientModInitializer {
 		ParticleFactoryRegistry.getInstance().register(ModParticleTypes.OFFENSE_SPORE, SporeParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticleTypes.DEFENSE_SPORE, SporeParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MOBILITY_SPORE, SporeParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticleTypes.RADIOACTIVE_DECAY, RadioactiveDecayParticle.Factory::new);
 	}
 
 	private void initEvents() {

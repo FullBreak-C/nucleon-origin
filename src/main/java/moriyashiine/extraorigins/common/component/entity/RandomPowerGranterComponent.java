@@ -12,12 +12,14 @@ import io.github.apace100.origins.Origins;
 import moriyashiine.extraorigins.client.payload.NotifyRandomPowerChangePacket;
 import moriyashiine.extraorigins.common.ExtraOrigins;
 import moriyashiine.extraorigins.common.init.ModEntityComponents;
+import moriyashiine.extraorigins.common.init.ModParticleTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
@@ -29,11 +31,13 @@ import java.util.List;
 public class RandomPowerGranterComponent implements AutoSyncedComponent, CommonTickingComponent {
 	public static final Identifier RANDOM_POWER_GRANTER = ExtraOrigins.id("random_power_granter");
 
-	private static final List<Identifier> DISALLOWED_IDENTIFIERS = List.of(RANDOM_POWER_GRANTER, ExtraOrigins.id("rooted"), Origins.identifier("hunger_over_time"), Origins.identifier("invisibility"), Origins.identifier("phantomize"), Origins.identifier("phasing"), Origins.identifier("webbing"));
+	private static final List<Identifier> DISALLOWED_IDENTIFIERS = List.of(RANDOM_POWER_GRANTER, ExtraOrigins.id("stabilize"), ExtraOrigins.id("rooted"), Origins.identifier("hunger_over_time"), Origins.identifier("invisibility"), Origins.identifier("phantomize"), Origins.identifier("phasing"), Origins.identifier("webbing"));
 
 	private final LivingEntity obj;
 	private final TemporaryPower[] temporaryPowers = new TemporaryPower[3];
 	private boolean enabled = false;
+
+	private int freezeTimer = 0;
 
 	public RandomPowerGranterComponent(LivingEntity obj) {
 		this.obj = obj;
@@ -42,6 +46,7 @@ public class RandomPowerGranterComponent implements AutoSyncedComponent, CommonT
 	@Override
 	public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup wrapperLookup) {
 		enabled = tag.getBoolean("Enabled");
+		freezeTimer = tag.getInt("FreezeTimer");
 		Arrays.fill(temporaryPowers, null);
 		if (enabled) {
 			NbtList list = tag.getList("Powers", NbtElement.COMPOUND_TYPE);
@@ -55,6 +60,7 @@ public class RandomPowerGranterComponent implements AutoSyncedComponent, CommonT
 	@Override
 	public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup wrapperLookup) {
 		tag.putBoolean("Enabled", enabled);
+		tag.putInt("FreezeTimer", freezeTimer);
 		if (enabled) {
 			NbtList list = new NbtList();
 			for (TemporaryPower temporaryPower : temporaryPowers) {
@@ -71,9 +77,28 @@ public class RandomPowerGranterComponent implements AutoSyncedComponent, CommonT
 	@Override
 	public void tick() {
 		if (enabled) {
-			for (TemporaryPower temporaryPower : temporaryPowers) {
-				if (temporaryPower.duration > 0) {
-					temporaryPower.duration--;
+			if (freezeTimer > 0) {
+				freezeTimer--; // Powers are frozen
+			} else {
+				// Not frozen
+				for (TemporaryPower temporaryPower : temporaryPowers) {
+					if (temporaryPower.duration > 0) {
+						temporaryPower.duration--;
+					}
+				}
+
+				if (obj.getWorld() instanceof ServerWorld serverWorld) {
+					if (obj.age % 4 == 0) {
+						serverWorld.spawnParticles(
+								ModParticleTypes.RADIOACTIVE_DECAY,
+								obj.getX(),                   // X position
+								obj.getRandomBodyY(),         // Y position
+								obj.getZ(),                   // Z position
+								1,                            // Particle count per spawn
+								0.1, 0.5, 0.1,                // Spread radius (X, Y, Z)
+								1                           // Particle speed/velocity
+						);
+					}
 				}
 			}
 		}
@@ -131,7 +156,7 @@ public class RandomPowerGranterComponent implements AutoSyncedComponent, CommonT
 	}
 
 	private void givePower(Power power, int index) {
-		temporaryPowers[index] = new TemporaryPower(power, obj.getRandom().nextBetween(6000, 18000));
+		temporaryPowers[index] = new TemporaryPower(power, obj.getRandom().nextBetween(4800, 9600));
 		PowerHolderComponent powerHolderComponent = PowerHolderComponent.KEY.get(obj);
 		powerHolderComponent.addPower(power, RANDOM_POWER_GRANTER);
 		powerHolderComponent.sync();
@@ -163,6 +188,11 @@ public class RandomPowerGranterComponent implements AutoSyncedComponent, CommonT
 			return false;
 		}
 		return !DISALLOWED_IDENTIFIERS.contains(power.getId());
+	}
+
+	public void triggerFreeze(int durationInTicks) {
+		this.freezeTimer = durationInTicks;
+		sync();
 	}
 
 	public static class TemporaryPower {

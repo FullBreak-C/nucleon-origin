@@ -1,6 +1,7 @@
 {
   "powers": [
-	"extraorigins:radioactive"
+	"extraorigins:radioactive",
+    "extraorigins:stabilize"
   ],
   "icon": {
 	"id": "origins:orb_of_origin"
