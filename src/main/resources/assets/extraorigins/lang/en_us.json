@@ -58,5 +58,7 @@
   "tag.item.extraorigins.golden_equipment": "Golden Equipment",
   "tag.item.extraorigins.golden_armor": "Golden Armor",
   "tag.item.extraorigins.golden_tools": "Golden Tools",
-  "origins.gui.impact.very_high": "Very High"
+  "origins.gui.impact.very_high": "Very High",
+  "key.extraorigins.stabilize": "Nucleon Stabilize",
+  "category.extraorigins.keys": "Extra Origins"
 }

@@ -10,6 +10,6 @@
     "sprite_location": "extraorigins:textures/gui/resource_bar_alt.png"
   },
   "key": {
-    "key": "key.origins.primary_active"
+    "key": "key.extraorigins.stabilize"
   }
 }
