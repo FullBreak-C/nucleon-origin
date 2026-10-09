@@ -88,16 +88,29 @@ public class RandomPowerGranterComponent implements AutoSyncedComponent, CommonT
 				}
 
 				if (obj.getWorld() instanceof ServerWorld serverWorld) {
-					if (obj.age % 4 == 0) {
-						serverWorld.spawnParticles(
-								ModParticleTypes.RADIOACTIVE_DECAY,
-								obj.getX(),                   // X position
-								obj.getRandomBodyY(),         // Y position
-								obj.getZ(),                   // Z position
-								1,                            // Particle count per spawn
-								0.1, 0.5, 0.1,                // Spread radius (X, Y, Z)
-								1                           // Particle speed/velocity
-						);
+					if (obj.age % 15 == 0) {
+						double x = obj.getX() + (Math.random()*2 - 1) * 0.4;
+						double y = obj.getRandomBodyY() + (Math.random()*2 - 1) * 1;
+						double z = obj.getZ() + (Math.random()*2 - 1) * 0.4;
+
+						double ox = Math.round(Math.random()*2 - 1) * 0.15;
+						double oy = Math.round(Math.random()*2 - 1) * 0.15;
+						double oz = Math.round(Math.random()*2 - 1) * 0.15;
+
+
+						int rLength = (int) (Math.random() * 5) + 5;
+
+						for (int i = 0; i < rLength; i++) {
+							serverWorld.spawnParticles(
+									ModParticleTypes.RADIOACTIVE_DECAY,
+									x + ox * i,                   // X position
+									y + oy * i,         // Y position
+									z + oz * i,                   // Z position
+									1,                            // Particle count per spawn
+									0.02,0.02,0.02,                // Spread radius (X, Y, Z)
+									0                           // Particle speed/velocity
+							);
+						}
 					}
 				}
 			}

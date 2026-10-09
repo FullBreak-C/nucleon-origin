@@ -2,9 +2,9 @@
   "type": "origins:active_self",
   "entity_action": {
     "type": "extraorigins:trigger_freeze",
-    "duration": 100
+    "duration": 24000
   },
-  "cooldown": 200,
+  "cooldown": 36000,
   "hud_render": {
     "should_render": true,
     "sprite_location": "extraorigins:textures/gui/resource_bar_alt.png"
