@@ -1,0 +1,80 @@
+{
+  "type": "origins:multiple",
+  "burn_punishment": {
+    "type": "origins:burn",
+    "interval": 20,
+    "burn_duration": 6,
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "origins:exposed_to_sun"
+        },
+        {
+          "type": "origins:invisible",
+          "inverted": true
+        },
+        {
+          "type": "origins:enchantment",
+          "enchantment": "extraorigins:sun_protection",
+          "calculation": "sum",
+          "comparison": "==",
+          "compare_to": 0
+        }
+      ]
+    }
+  },
+  "weakness_punishment": {
+    "type": "origins:stacking_status_effect",
+    "min_stacks": 0,
+    "max_stacks": 1,
+    "duration_per_stack": 100,
+    "effect": {
+      "id": "minecraft:weakness",
+      "is_ambient": true,
+      "show_particles": false,
+      "show_icon": true
+    },
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "origins:exposed_to_sun"
+        },
+        {
+          "type": "origins:invisible",
+          "inverted": true
+        },
+        {
+          "type": "origins:enchantment",
+          "enchantment": "extraorigins:sun_protection",
+          "calculation": "sum",
+          "comparison": ">=",
+          "compare_to": 1
+        }
+      ]
+    }
+  },
+  "test": {
+    "type": "origins:shaking",
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "origins:exposed_to_sun"
+        },
+        {
+          "type": "origins:invisible",
+          "inverted": true
+        },
+        {
+          "type": "origins:enchantment",
+          "enchantment": "extraorigins:sun_protection",
+          "calculation": "sum",
+          "comparison": ">=",
+          "compare_to": 1
+        }
+      ]
+    }
+  }
+}
