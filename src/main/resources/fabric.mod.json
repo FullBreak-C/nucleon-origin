@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "extraorigins",
   "version": "${version}",
-  "name": "Extra Origins",
-  "description": "Adds more origins to the Origins mod",
+  "name": "Extra Origins (REWORK)",
+  "description": "Adds more origins to the Origins mod, reworked nuclean + sunblock enchantment",
   "authors": [
 	"MoriyaShiine"
   ],
@@ -15,7 +15,7 @@
 	"sources": "https://github.com/MoriyaShiine/extra-origins",
 	"issues": "https://github.com/MoriyaShiine/extra-origins/issues"
   },
-  "license": "All Rights Reserved",
+  "license": "MIT",
   "icon": "assets/extraorigins/icon.png",
   "environment": "*",
   "entrypoints": {
